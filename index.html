@@ -1,0 +1,902 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>6th Tally - Premier Prop Trading Firm</title>
+    
+    <!-- Bootstrap 5 CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <!-- AOS Animation Library -->
+    <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet">
+    
+    <!-- Swiper Slider -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"/>
+    
+    <!-- DataTables -->
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.7/css/dataTables.bootstrap5.min.css">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --sky-blue: #00bfff;
+            --dark-blue: #001f3f;
+            --white: #ffffff;
+            --black: #000000;
+            --light-gray: #f8f9fa;
+            --gray: #e9ecef;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            overflow-x: hidden;
+            background: var(--white);
+        }
+        html, body {
+    width: 100%;
+    overflow-x: hidden;
+}
+
+        
+        .bg-dark-blue { background-color: var(--dark-blue); }
+        .bg-sky-blue { background-color: var(--sky-blue); }
+        .text-sky { color: var(--sky-blue); }
+        .text-dark-blue { color: var(--dark-blue); }
+        
+        .btn-sky {
+            background-color: var(--sky-blue);
+            border: none;
+            padding: 14px 34px;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: all 0.4s ease;
+        }
+        .btn-sky:hover {
+            background-color: #00a3cc;
+            transform: translateY(-4px);
+            box-shadow: 0 10px 20px rgba(0,191,255,0.3);
+        }
+        .btn-outline-sky {
+            border: 2px solid var(--sky-blue);
+            color: var(--sky-blue);
+            padding: 14px 34px;
+            border-radius: 50px;
+            font-weight: 600;
+        }
+        .btn-outline-sky:hover {
+            background-color: var(--sky-blue);
+            color: white;
+            transform: translateY(-4px);
+        }
+        
+        /* Navbar */
+        .navbar {
+            backdrop-filter: blur(12px);
+            background: rgba(0, 31, 63, 0.95) !important;
+            transition: all 0.3s ease;
+        }
+        .navbar.scrolled {
+            background: rgba(0, 31, 63, 1) !important;
+        }
+        
+        /* Hero */
+        .hero {
+            background: linear-gradient(rgba(0,31,63,0.85), rgba(0,31,63,0.85)), url('https://images.unsplash.com/photo-1590283603385-17ffb3a7f29f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80') center/cover no-repeat;
+            height: 100vh;
+            min-height: 700px;
+            display: flex;
+            align-items: center;
+        }
+        
+        /* Parallax */
+        .parallax {
+            background: url('https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80') center/cover fixed;
+            height: 600px;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .parallax::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: rgba(0,31,63,0.75);
+        }
+        .parallax-content {
+            z-index: 1;
+            text-align: center;
+        }
+        
+        /* Cards */
+        .tilt-card {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+            transition: all 0.4s ease;
+            overflow: hidden;
+        }
+        .testimonial-card {
+            background: var(--light-gray);
+            border-radius: 20px;
+            padding: 30px;
+        }
+        
+        /* Section padding */
+        section {
+            padding: 120px 0;
+        }
+        .section-sm { padding: 80px 0; }
+        
+        /* Newsletter */
+        .newsletter {
+            background: linear-gradient(135deg, var(--dark-blue), var(--sky-blue));
+        }
+        
+        /* Payout Proofs */
+        .proof-img {
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            transition: transform 0.4s;
+            max-height: 500px;
+            object-fit: contain;
+        }
+        .proof-img:hover {
+            transform: scale(1.05);
+        }
+        
+        /* Table */
+        #comparisonTable thead th {
+            cursor: pointer;
+            background: var(--dark-blue);
+            color: white;
+        }
+        #comparisonTable td.highlight {
+            background: rgba(0,191,255,0.1);
+            font-weight: 600;
+        }
+        #comparisonTable tbody tr:hover {
+            background-color: rgba(0,191,255,0.05);
+        }
+        .dataTables_wrapper .dataTables_paginate .paginate_button {
+            border-radius: 50px !important;
+        }
+        
+        /* Footer */
+        .footer-wave {
+            background: linear-gradient(to bottom, var(--dark-blue), #000814);
+        }
+        .footer-social i {
+            font-size: 1.8rem;
+            margin: 0 12px;
+            transition: all 0.3s;
+        }
+        .footer-social i:hover {
+            color: var(--sky-blue);
+            transform: translateY(-5px);
+        }
+        .payment-icons i {
+            font-size: 2.5rem;
+            margin: 0 15px;
+        }
+        
+        /* Mobile */
+        @media (max-width: 576px) {
+            section { padding: 80px 0; }
+            .hero h1 { font-size: 2.5rem; }
+            .btn-sky, .btn-outline-sky { padding: 12px 24px; font-size: 0.9rem; }
+            .display-5 { font-size: 2.5rem; }
+        }
+    </style>
+</head>
+<body data-bs-spy="scroll" data-bs-target="#navbar">
+
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg fixed-top bg-dark-blue" id="navbar">
+        <div class="container">
+            <a class="navbar-brand text-white fw-bold fs-3" href="#">6th Tally</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navmenu">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navmenu">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link text-white" href="#home">Home</a></li>
+                    <li class="nav-item"><a class="nav-link text-white" href="#challenges">Challenges</a></li>
+                    <li class="nav-item"><a class="nav-link text-white" href="#crypto">Crypto</a></li>
+                    <li class="nav-item"><a class="nav-link text-white" href="#rules">Rules</a></li>
+                    <li class="nav-item"><a class="nav-link text-white" href="#payouts">Payouts</a></li>
+                    <li class="nav-item"><a class="nav-link text-white" href="#comparison">Comparison</a></li>
+                    <li class="nav-item"><a class="nav-link text-white" href="#videos">Videos</a></li>
+                    <li class="nav-item"><a class="nav-link text-white" href="#testimonials">Testimonials</a></li>
+                    <li class="nav-item"><a class="nav-link text-white" href="#faq">FAQ</a></li>
+                    <li class="nav-item"><a class="btn btn-sky ms-3" href="#">Dashboard</a></li>
+                    <li class="nav-item"><a class="btn btn-outline-sky ms-2" href="#">Sign Up</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero -->
+    <section id="home" class="hero text-white text-center">
+        <div class="container">
+            <h1 class="display-2 fw-bold mb-4" data-aos="fade-up">Trade Forex, Indices,<br>Crypto & More – Get Funded</h1>
+            <p class="lead mb-5" data-aos="fade-up" data-aos-delay="200">Up to $300,000 funding • 90% profit split • Instant payouts • Crypto 24/7</p>
+            <div data-aos="fade-up" data-aos-delay="400">
+                <a href="#" class="btn btn-sky btn-lg me-3">Get Funded</a>
+                <a href="#challenges" class="btn btn-outline-sky btn-lg">Learn More</a>
+            </div>
+            <div class="mt-5 text-warning fw-bold" data-aos="fade-up" data-aos-delay="600">Use code LAUNCH20 for 20% OFF!</div>
+        </div>
+    </section>
+
+    <!-- Why Choose Us -->
+    <section class="bg-light" id="why">
+        <div class="container">
+            <div class="text-center mb-5" data-aos="fade-up">
+                <h2 class="fw-bold text-dark-blue">Why Choose 6th Tally?</h2>
+                <p class="lead">Best-in-class conditions for serious traders</p>
+            </div>
+            <div class="row g-5">
+                <div class="col-md-4" data-aos="fade-up" data-aos-delay="100">
+                    <div class="tilt-card p-5 text-center h-100" data-tilt data-tilt-glare data-tilt-max-glare="0.3">
+                        <i class="fas fa-bitcoin fa-4x text-sky mb-4"></i>
+                        <h4>Crypto Trading 24/7</h4>
+                        <p>Trade BTC, ETH, and major pairs around the clock.</p>
+                    </div>
+                </div>
+                <div class="col-md-4" data-aos="fade-up" data-aos-delay="200">
+                    <div class="tilt-card p-5 text-center h-100" data-tilt data-tilt-glare data-tilt-max-glare="0.3">
+                        <i class="fas fa-handshake fa-4x text-sky mb-4"></i>
+                        <h4>90% Profit Split</h4>
+                        <p>Keep more of what you earn.</p>
+                    </div>
+                </div>
+                <div class="col-md-4" data-aos="fade-up" data-aos-delay="300">
+                    <div class="tilt-card p-5 text-center h-100" data-tilt data-tilt-glare data-tilt-max-glare="0.3">
+                        <i class="fas fa-bolt fa-4x text-sky mb-4"></i>
+                        <h4>Instant Payouts</h4>
+                        <p>On-demand withdrawals — no delays.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Parallax -->
+    <section class="parallax">
+        <div class="parallax-content text-white">
+            <h2 class="display-4 fw-bold" data-aos="zoom-in">Trade Crypto, Forex & Indices</h2>
+            <p class="lead" data-aos="fade-up" data-aos-delay="200">Over 100 instruments including 24/7 cryptocurrency pairs.</p>
+        </div>
+    </section>
+
+    <!-- Challenges -->
+    <section id="challenges">
+        <div class="container">
+            <div class="text-center mb-5" data-aos="fade-up">
+                <h2 class="fw-bold text-dark-blue">Choose Your Challenge</h2>
+                <p class="lead">Pass the evaluation → Get funded → Keep 90%</p>
+            </div>
+            <div class="swiper challengeSwiper">
+                <div class="swiper-wrapper">
+                    <div class="swiper-slide">
+                        <div class="tilt-card p-5 text-center" data-tilt>
+                            <h3>$10,000 Account</h3>
+                            <h4 class="text-sky display-5 fw-bold">$79</h4>
+                            <ul class="list-unstyled mt-4">
+                                <li>8% Profit Target</li>
+                                <li>5% Daily Loss</li>
+                                <li>10% Max Loss</li>
+                                <li>1:100 Leverage</li>
+                            </ul>
+                            <a href="#" class="btn btn-sky mt-4">Buy Now</a>
+                        </div>
+                    </div>
+                    <div class="swiper-slide">
+                        <div class="tilt-card p-5 text-center" data-tilt>
+                            <h3>$25,000 Account</h3>
+                            <h4 class="text-sky display-5 fw-bold">$149</h4>
+                            <ul class="list-unstyled mt-4">
+                                <li>8% Profit Target</li>
+                                <li>5% Daily Loss</li>
+                                <li>10% Max Loss</li>
+                                <li>1:100 Leverage</li>
+                            </ul>
+                            <a href="#" class="btn btn-sky mt-4">Buy Now</a>
+                        </div>
+                    </div>
+                    <div class="swiper-slide">
+                        <div class="tilt-card p-5 text-center" data-tilt>
+                            <h3>$50,000 Account</h3>
+                            <h4 class="text-sky display-5 fw-bold">$249</h4>
+                            <ul class="list-unstyled mt-4">
+                                <li>8% Profit Target</li>
+                                <li>5% Daily Loss</li>
+                                <li>10% Max Loss</li>
+                                <li>1:100 Leverage</li>
+                            </ul>
+                            <a href="#" class="btn btn-sky mt-4">Buy Now</a>
+                        </div>
+                    </div>
+                    <div class="swiper-slide">
+                        <div class="tilt-card p-5 text-center" data-tilt>
+                            <h3>$100,000 Account</h3>
+                            <h4 class="text-sky display-5 fw-bold">$399</h4>
+                            <ul class="list-unstyled mt-4">
+                                <li>8% Profit Target</li>
+                                <li>5% Daily Loss</li>
+                                <li>10% Max Loss</li>
+                                <li>1:100 Leverage</li>
+                            </ul>
+                            <a href="#" class="btn btn-sky mt-4">Buy Now</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="swiper-pagination"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Crypto Trading with BTC & ETH Live Charts -->
+    <section id="crypto" class="bg-light">
+        <div class="container">
+            <div class="text-center mb-5" data-aos="fade-up">
+                <h2 class="fw-bold text-dark-blue">Live Crypto Trading 24/7</h2>
+                <p class="lead">Trade BTC, ETH & more with real-time charts and tight spreads</p>
+            </div>
+            <div class="row g-5">
+                <div class="col-lg-6" data-aos="fade-right">
+                    <div class="tradingview-widget-container rounded-3 shadow-lg" style="height:500px;">
+                        <div id="btc_chart" style="height:100%;"></div>
+                        <script type="text/javascript" src="https://s3.tradingview.com/tv.js"></script>
+                        <script type="text/javascript">
+                        new TradingView.widget({
+                            "width": "100%",
+                            "height": "100%",
+                            "symbol": "BITSTAMP:BTCUSD",
+                            "interval": "60",
+                            "timezone": "Etc/UTC",
+                            "theme": "dark",
+                            "style": "1",
+                            "locale": "en",
+                            "toolbar_bg": "#f1f3f6",
+                            "enable_publishing": false,
+                            "allow_symbol_change": true,
+                            "container_id": "btc_chart"
+                        });
+                        </script>
+                    </div>
+                    <p class="text-center mt-3 fw-bold">Live Bitcoin/USD Chart</p>
+                </div>
+                <div class="col-lg-6" data-aos="fade-left">
+                    <div class="tradingview-widget-container rounded-3 shadow-lg" style="height:500px;">
+                        <div id="eth_chart" style="height:100%;"></div>
+                        <script type="text/javascript" src="https://s3.tradingview.com/tv.js"></script>
+                        <script type="text/javascript">
+                        new TradingView.widget({
+                            "width": "100%",
+                            "height": "100%",
+                            "symbol": "BINANCE:ETHUSDT",
+                            "interval": "60",
+                            "timezone": "Etc/UTC",
+                            "theme": "dark",
+                            "style": "1",
+                            "locale": "en",
+                            "toolbar_bg": "#f1f3f6",
+                            "enable_publishing": false,
+                            "allow_symbol_change": true,
+                            "container_id": "eth_chart"
+                        });
+                        </script>
+                    </div>
+                    <p class="text-center mt-3 fw-bold">Live Ethereum/USDT Chart</p>
+                </div>
+            </div>
+            <div class="row mt-5">
+                <div class="col-lg-8 mx-auto text-center" data-aos="fade-up">
+                    <div class="tilt-card p-5">
+                        <ul class="list-unstyled fs-5">
+                            <li><i class="fas fa-check text-sky me-3"></i>BTC/USD, ETH/USDT, LTC/USD & more major pairs</li>
+                            <li><i class="fas fa-check text-sky me-3"></i>Weekend & holiday trading available</li>
+                            <li><i class="fas fa-check text-sky me-3"></i>Up to 1:100 leverage on crypto</li>
+                            <li><i class="fas fa-check text-sky me-3"></i>No swap fees</li>
+                            <li><i class="fas fa-check text-sky me-3"></i>Instant execution & deep liquidity</li>
+                        </ul>
+                        <a href="#instruments" class="btn btn-sky mt-4">View All Live Prices</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Trading Rules -->
+    <section id="rules" class="bg-light">
+        <div class="container">
+            <div class="text-center mb-5" data-aos="fade-up">
+                <h2 class="fw-bold text-dark-blue">Trading Rules & Guidelines</h2>
+                <p class="lead">Simple, transparent, trader-friendly rules</p>
+            </div>
+            <div class="row g-5">
+                <div class="col-lg-6" data-aos="fade-right">
+                    <div class="tilt-card p-5 h-100">
+                        <h4 class="text-sky"><i class="fas fa-shield-alt me-3"></i>Risk Management</h4>
+                        <ul class="list-unstyled mt-4 fs-5">
+                            <li><strong>Daily Loss Limit:</strong> 5%</li>
+                            <li><strong>Overall Drawdown:</strong> 10% (trailing)</li>
+                            <li><strong>Minimum Trading Days:</strong> 3 per phase</li>
+                            <li><strong>No Maximum Time Limit</strong></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-6" data-aos="fade-left">
+                    <div class="tilt-card p-5 h-100">
+                        <h4 class="text-sky"><i class="fas fa-gavel me-3"></i>Allowed Strategies</h4>
+                        <ul class="list-unstyled mt-4 fs-5">
+                            <li>News trading fully allowed</li>
+                            <li>Hedging allowed</li>
+                            <li>EA & algo trading allowed (no latency arbitrage)</li>
+                            <li>Crypto weekend holding allowed</li>
+                            <li>Martingale/Grid with risk limits</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Payout Process & Proofs -->
+    <section id="payouts">
+        <div class="container">
+            <div class="text-center mb-5" data-aos="fade-up">
+                <h2 class="fw-bold text-dark-blue">Instant Payout Process & Real Proofs</h2>
+                <p class="lead">On-demand withdrawals • Crypto, Bank Wire, Rise • Paid in hours</p>
+            </div>
+            <div class="row g-5 justify-content-center">
+                <div class="col-md-4 text-center" data-aos="fade-up" data-aos-delay="100">
+                    <div class="tilt-card p-5 h-100">
+                        <div class="rounded-circle bg-sky-blue text-white d-flex align-items-center justify-content-center mx-auto mb-4" style="width:80px;height:80px;">
+                            <h3>1</h3>
+                        </div>
+                        <h5>Request Payout</h5>
+                        <p>From dashboard anytime after profit target.</p>
+                    </div>
+                </div>
+                <div class="col-md-4 text-center" data-aos="fade-up" data-aos-delay="200">
+                    <div class="tilt-card p-5 h-100">
+                        <div class="rounded-circle bg-sky-blue text-white d-flex align-items-center justify-content-center mx-auto mb-4" style="width:80px;height:80px;">
+                            <h3>2</h3>
+                        </div>
+                        <h5>Processed Instantly</h5>
+                        <p>Automated approval in minutes.</p>
+                    </div>
+                </div>
+                <div class="col-md-4 text-center" data-aos="fade-up" data-aos-delay="300">
+                    <div class="tilt-card p-5 h-100">
+                        <div class="rounded-circle bg-sky-blue text-white d-flex align-items-center justify-content-center mx-auto mb-4" style="width:80px;height:80px;">
+                            <h3>3</h3>
+                        </div>
+                        <h5>Receive Funds</h5>
+                        <p>Via crypto (USDT/BTC), bank, or Rise within 24h.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Payout Proofs Slider -->
+            <div class="mt-5" data-aos="fade-up">
+                <h3 class="text-center fw-bold mb-4 text-dark-blue">Real Trader Payout Proofs</h3>
+                <div class="swiper proofSwiper">
+                    <div class="swiper-wrapper">
+                        <div class="swiper-slide text-center bg-white p-4 rounded-3">
+                            <img src="https://thetrustedprop.com/_next/image?url=https%3A%2F%2Fpub-51c71f8fd7954912b8b4f24b379002f8.r2.dev%2Fthetrustedprop%2Flogo%2F1769163611760-hyro%20trader%20comp.jpg&w=1920&q=75" alt="Payout Proof 1" class="img-fluid proof-img">
+                            <p class="mt-3 fw-bold">$12,450 Payout Example</p>
+                        </div>
+                        <div class="swiper-slide text-center bg-white p-4 rounded-3">
+                            <img src="https://fundednext.com/_next/image?url=https%3A%2F%2Fblog.fundednext.com%2Fwp-content%2Fuploads%2F2025%2F08%2Fprop-firm-payouts.jpg&w=3840&q=75" alt="Payout Proof 2" class="img-fluid proof-img">
+                            <p class="mt-3 fw-bold">$8,200 Payout Example</p>
+                        </div>
+                        <div class="swiper-slide text-center bg-white p-4 rounded-3">
+                            <img src="https://thetrustedprop.com/_next/image?url=https%3A%2F%2Fpub-51c71f8fd7954912b8b4f24b379002f8.r2.dev%2Fthetrustedprop%2Flogo%2F1768627673606-GFT%20Detailed%20review%20-%20comp.jpg&w=3840&q=75" alt="Payout Proof 3" class="img-fluid proof-img">
+                            <p class="mt-3 fw-bold">$15,000 Payout Example</p>
+                        </div>
+                    </div>
+                    <div class="swiper-pagination"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Interactive Comparison -->
+    <section id="comparison" class="bg-light">
+        <div class="container">
+            <div class="text-center mb-5" data-aos="fade-up">
+                <h2 class="fw-bold text-dark-blue">Why 6th Tally Stands Out</h2>
+                <p class="lead">Interactive comparison (2026 data)</p>
+            </div>
+            <div class="table-responsive" data-aos="fade-up" data-aos-delay="200">
+                <table id="comparisonTable" class="table table-bordered table-hover text-center align-middle">
+                    <thead>
+                        <tr>
+                            <th>Feature</th>
+                            <th>6th Tally</th>
+                            <th>FTMO</th>
+                            <th>FundedNext</th>
+                            <th>Funding Pips</th>
+                            <th>MyForexFunds</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Profit Split</strong></td>
+                            <td class="highlight">90%</td>
+                            <td>90%</td>
+                            <td>95%</td>
+                            <td>90%</td>
+                            <td>85%</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Payout Speed</strong></td>
+                            <td class="highlight">Instant / On Demand</td>
+                            <td>Bi-weekly</td>
+                            <td>Weekly</td>
+                            <td>On Demand</td>
+                            <td>Monthly</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Crypto Trading</strong></td>
+                            <td class="highlight">24/7 Full</td>
+                            <td>Limited</td>
+                            <td>Yes</td>
+                            <td>Yes</td>
+                            <td>No</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Max Daily Drawdown</strong></td>
+                            <td class="highlight">5%</td>
+                            <td>5%</td>
+                            <td>5%</td>
+                            <td>4-5%</td>
+                            <td>5%</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Time Limits</strong></td>
+                            <td class="highlight">None</td>
+                            <td>None on funded</td>
+                            <td>None</td>
+                            <td>None</td>
+                            <td>None</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Leverage</strong></td>
+                            <td class="highlight">1:100</td>
+                            <td>1:100</td>
+                            <td>1:100</td>
+                            <td>1:100</td>
+                            <td>1:100</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <!-- Videos -->
+    <section id="videos" class="bg-dark-blue text-white">
+        <div class="container">
+            <div class="text-center mb-5" data-aos="fade-up">
+                <h2 class="fw-bold">Watch How It Works</h2>
+                <p class="lead">Explainer videos and success stories</p>
+            </div>
+            <div class="row g-5">
+                <div class="col-lg-6" data-aos="fade-up">
+                    <div class="ratio ratio-16x9 rounded-3 overflow-hidden shadow-lg">
+                        <iframe src="https://www.youtube.com/embed/K8o9SmlYZ4Y" title="How to Get Funded" allowfullscreen></iframe>
+                    </div>
+                    <h4 class="mt-3 text-center">How to Get Funded in 3 Steps</h4>
+                </div>
+                <div class="col-lg-6" data-aos="fade-up" data-aos-delay="200">
+                    <div class="ratio ratio-16x9 rounded-3 overflow-hidden shadow-lg">
+                        <iframe src="https://www.youtube.com/embed/0rM4qJ4Y0dE" title="Trader Success" allowfullscreen></iframe>
+                    </div>
+                    <h4 class="mt-3 text-center">Real Trader Success Story</h4>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Devices -->
+    <section class="bg-light section-sm">
+        <div class="container">
+            <div class="text-center mb-5" data-aos="fade-up">
+                <h2 class="fw-bold text-dark-blue">Trade Anywhere, Anytime</h2>
+                <p class="lead">Seamless on desktop, tablet, and mobile</p>
+            </div>
+            <div class="row justify-content-center align-items-center g-5">
+                <div class="col-lg-5" data-aos="fade-right">
+                    <div data-tilt data-tilt-glare data-tilt-max-glare="0.8" data-tilt-scale="1.05">
+                        <img src="mobiletrading.jpg" alt="Mobile Trading" class="img-fluid rounded-3 shadow-lg">
+                    </div>
+                </div>
+                <div class="col-lg-5 offset-lg-1" data-aos="fade-left">
+                    <div data-tilt data-tilt-glare data-tilt-max-glare="0.8" data-tilt-scale="1.05">
+                        <img src=";aptoptrading.jpg" alt="Desktop Trading" class="img-fluid rounded-3 shadow-lg">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Instruments Ticker -->
+    <section id="instruments" class="bg-dark-blue">
+        <div class="container py-5">
+            <h2 class="text-white text-center mb-4" data-aos="fade-up">Live Market Prices</h2>
+            <div class="tradingview-widget-container">
+                <div class="tradingview-widget-container__widget"></div>
+                <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-tickers.js" async width="90%">
+                {
+                  "symbols"; [
+                    { "proName": "FOREXCOM:EURUSD", "title": "EUR/USD" },
+                    { "proName": "FOREXCOM:GBPUSD", "title": "GBP/USD" },
+                    { "proName": "BITSTAMP:BTCUSD", "title": "BTC/USD" },
+                    { "proName": "BINANCE:ETHUSDT", "title": "ETH/USDT" },
+                    { "proName": "FX:USOIL", "title": "Crude Oil" },
+                    { "proName": "NASDAQ:AAPL", "title": "Apple" }
+                  ],
+                  "colorTheme"; "dark",
+                  "isTransparent"; true,
+                  "showSymbolLogo"; true,
+                  "locale"; "en"
+                }
+                </script>
+            </div>
+        </div>
+    </section>
+
+    <!-- General Live Chart -->
+    <section id="chart" class="bg-light">
+        <div class="container">
+            <h2 class="text-center fw-bold text-dark-blue mb-5" data-aos="fade-up">Live Forex Chart</h2>
+            <div class="tradingview-widget-container rounded-3 shadow-lg" style="height:600px;" data-aos="fade-up" data-aos-delay="200">
+                <div id="tradingview_chart" style="height:100%;"></div>
+                <script type="text/javascript" src="https://s3.tradingview.com/tv.js"></script>
+                <script type="text/javascript">
+                new TradingView.widget({
+                    "width": "100%",
+                    "height": "500px",
+                    "symbol": "FX:EURUSD",
+                    "interval": "60",
+                    "timezone": "Etc/UTC",
+                    "theme": "dark",
+                    "style": "1",
+                    "locale": "en",
+                    "toolbar_bg": "#f1f3f6",
+                    "enable_publishing": false,
+                    "allow_symbol_change": true,
+                    "container_id": "tradingview_chart"
+                });
+                </script>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section id="testimonials" class="bg-light">
+        <div class="container">
+            <div class="text-center mb-5" data-aos="fade-up">
+                <h2 class="fw-bold text-dark-blue">What Traders Say</h2>
+                <p class="lead">Real reviews from funded traders</p>
+            </div>
+            <div class="swiper testimonialSwiper">
+                <div class="swiper-wrapper">
+                    <div class="swiper-slide">
+                        <div class="testimonial-card text-center" data-tilt>
+                            <img src="https://i.pravatar.cc/150?img=1" class="rounded-circle mb-4" width="100" alt="Trader">
+                            <p class="fs-5 fst-italic">"Best prop firm. Passed fast and got paid in 24h!"</p>
+                            <div class="text-warning mb-2"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+                            <h5 class="fw-bold">James K.</h5>
+                            <small>Funded $100K</small>
+                        </div>
+                    </div>
+                    <div class="swiper-slide">
+                        <div class="testimonial-card text-center" data-tilt>
+                            <img src="https://i.pravatar.cc/150?img=2" class="rounded-circle mb-4" width="100" alt="Trader">
+                            <p class="fs-5 fst-italic">"90% split and instant payouts — finally a firm that delivers."</p>
+                            <div class="text-warning mb-2"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+                            <h5 class="fw-bold">Sarah M.</h5>
+                            <small>Funded $50K</small>
+                        </div>
+                    </div>
+                    <div class="swiper-slide">
+                        <div class="testimonial-card text-center" data-tilt>
+                            <img src="https://i.pravatar.cc/150?img=11" class="rounded-circle mb-4" width="100" alt="Trader">
+                            <p class="fs-5 fst-italic">"Instant payouts are game-changing!"</p>
+                            <div class="text-warning mb-2"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+                            <h5 class="fw-bold">Michael T.</h5>
+                            <small>Funded $50K</small>
+                        </div>
+                    </div>
+                    <div class="swiper-slide">
+                        <div class="testimonial-card text-center" data-tilt>
+                            <img src="https://i.pravatar.cc/150?img=12" class="rounded-circle mb-4" width="100" alt="Trader">
+                            <p class="fs-5 fst-italic">"No time limits let me trade my way."</p>
+                            <div class="text-warning mb-2"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+                            <h5 class="fw-bold">Emma L.</h5>
+                            <small>Funded $200K</small>
+                        </div>
+                    </div>
+                    <div class="swiper-slide">
+                        <div class="testimonial-card text-center" data-tilt>
+                            <img src="https://i.pravatar.cc/150?img=13" class="rounded-circle mb-4" width="100" alt="Trader">
+                            <p class="fs-5 fst-italic">"Great support and clean dashboard."</p>
+                            <div class="text-warning mb-2"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+                            <h5 class="fw-bold">David R.</h5>
+                            <small>Funded $100K</small>
+                        </div>
+                    </div>
+                </div>
+                <div class="swiper-pagination"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Newsletter -->
+    <section class="newsletter text-white section-sm">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-6" data-aos="fade-right">
+                    <h2 class="fw-bold">Stay Updated</h2>
+                    <p class="lead">Exclusive offers, trading tips & news</p>
+                </div>
+                <div class="col-lg-6" data-aos="fade-left">
+                    <form class="d-flex flex-column flex-md-row gap-3">
+                        <input type="email" class="form-control form-control-lg rounded-pill" placeholder="Your email" required>
+                        <button type="submit" class="btn btn-outline-light btn-lg rounded-pill px-5">Subscribe</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ -->
+    <section id="faq" class="bg-light">
+        <div class="container">
+            <h2 class="text-center fw-bold text-dark-blue mb-5" data-aos="fade-up">Frequently Asked Questions</h2>
+            <div class="accordion" id="faqAccordion">
+                <div class="accordion-item" data-aos="fade-up">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#q1">What is a prop firm?</button>
+                    </h2>
+                    <div id="q1" class="accordion-collapse collapse show" data-bs-parent="#faqAccordion">
+                        <div class="accordion-body">A proprietary trading firm provides funded accounts to traders who pass an evaluation.</div>
+                    </div>
+                </div>
+                <div class="accordion-item" data-aos="fade-up" data-aos-delay="100">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#q2">How do payouts work?</button>
+                    </h2>
+                    <div id="q2" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                        <div class="accordion-body">On-demand after reaching profit target. Processed instantly, received within 24h.</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer-wave text-white py-5">
+        <div class="container">
+            <div class="row g-5">
+                <div class="col-lg-3">
+                    <h5 class="fw-bold mb-4">6th Tally</h5>
+                    <p>Leading prop trading firm with up to $300,000 funding, 90% splits, instant payouts & 24/7 crypto.</p>
+                    <div class="payment-icons text-white mt-4">
+                        <i class="fab fa-cc-visa" title="Visa"></i>
+                        <i class="fab fa-cc-mastercard" title="Mastercard"></i>
+                        <i class="fab fa-bitcoin" title="Bitcoin"></i>
+                        <i class="fas fa-coins" title="USDT"></i>
+                        <i class="fab fa-paypal" title="PayPal"></i>
+                    </div>
+                </div>
+                <div class="col-lg-3">
+                    <h5 class="fw-bold mb-4">Quick Links</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="#home">Home</a></li>
+                        <li><a href="#challenges">Challenges</a></li>
+                        <li><a href="#">Dashboard</a></li>
+                        <li><a href="#rules">Rules</a></li>
+                        <li><a href="#payouts">Payouts</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-3">
+                    <h5 class="fw-bold mb-4">Support</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="#faq">FAQ</a></li>
+                        <li><a href="#">Contact Us</a></li>
+                        <li><a href="#">Live Chat</a></li>
+                        <li><a href="#">Telegram</a></li>
+                        <li><a href="#">Discord</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-3">
+                    <h5 class="fw-bold mb-4">Connect With Us</h5>
+                    <div class="footer-social mb-4">
+                        <a href="#" class="text-white"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="text-white"><i class="fab fa-discord"></i></a>
+                        <a href="#" class="text-white"><i class="fab fa-telegram"></i></a>
+                        <a href="#" class="text-white"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="text-white"><i class="fab fa-youtube"></i></a>
+                    </div>
+                    <h5 class="fw-bold mb-4 mt-5">Legal</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="#">Terms</a></li>
+                        <li><a href="#">Privacy</a></li>
+                        <li><a href="#">Risk Disclosure</a></li>
+                    </ul>
+                </div>
+            </div>
+            <hr class="my-5 border-secondary">
+            <div class="text-center">
+                <p class="mb-2">&copy; 2026 6th Tally. All rights reserved.</p>
+                <p class="small text-muted">Risk Disclosure: Trading involves substantial risk and is not suitable for all investors.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vanilla-tilt@1.7.0/dist/vanilla-tilt.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.7/js/dataTables.bootstrap5.min.js"></script>
+    <script>
+        AOS.init({ duration: 1200, easing: 'ease-in-out', once: true });
+
+        window.addEventListener('scroll', () => {
+            document.querySelector('.navbar').classList.toggle('scrolled', window.scrollY > 50);
+        });
+
+        // Sliders
+        new Swiper('.challengeSwiper', {
+            slidesPerView: 1,
+            spaceBetween: 30,
+            pagination: { el: '.swiper-pagination', clickable: true },
+            autoplay: { delay: 5000 },
+            breakpoints: { 768: { slidesPerView: 2 }, 992: { slidesPerView: 3 }, 1200: { slidesPerView: 4 } }
+        });
+
+        new Swiper('.testimonialSwiper', {
+            slidesPerView: 1,
+            spaceBetween: 30,
+            pagination: { el: '.swiper-pagination', clickable: true },
+            autoplay: { delay: 6000 },
+            breakpoints: { 768: { slidesPerView: 2 }, 992: { slidesPerView: 3 } }
+        });
+
+        new Swiper('.proofSwiper', {
+            slidesPerView: 1,
+            spaceBetween: 30,
+            pagination: { el: '.swiper-pagination', clickable: true },
+            autoplay: { delay: 5000 },
+            breakpoints: { 768: { slidesPerView: 2 }, 992: { slidesPerView: 3 } }
+        });
+
+        // Interactive Table
+        $('#comparisonTable').DataTable({
+            paging: true,
+            pageLength: 10,
+            searching: true,
+            info: true,
+            ordering: true,
+            responsive: true,
+            language: { searchPlaceholder: "Search features or firms..." }
+        });
+    </script>
+</body>
+</html>
